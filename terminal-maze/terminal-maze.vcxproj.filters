@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\Game">
+      <UniqueIdentifier>{9b6050a5-a647-48a4-b4ba-912fad05650e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game\public">
+      <UniqueIdentifier>{81f536a7-d198-4c6d-ac0f-29992f358bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game\private">
+      <UniqueIdentifier>{c2d6e5ba-bb0e-4241-a128-faed3bcd0b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine">
+      <UniqueIdentifier>{c777d534-1d63-4d5f-ae17-561ed619a5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Core">
+      <UniqueIdentifier>{e87fbe1b-3e07-48fd-80fb-bdf77ff1e5df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Core\public">
+      <UniqueIdentifier>{8b03be52-2d2c-4314-a27a-58a3ae553649}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Core\private">
+      <UniqueIdentifier>{6bb96510-d1b2-4e69-85e8-75388ee01fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\public">
+      <UniqueIdentifier>{a853d77f-2e8e-405d-8e0b-8e77ca99fde7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\private">
+      <UniqueIdentifier>{7646d049-7c3e-4ddf-b6cb-db376fc4f04d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\Game\public\MazeGenerator.h">
+      <Filter>소스 파일\Game\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Core\public\Core.h">
+      <Filter>소스 파일\Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Engine\public\Main.h">
+      <Filter>소스 파일\Engine\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Game\public\Maze.h">
+      <Filter>소스 파일\Game\public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\Game\private\MazeGenerator.cpp">
+      <Filter>소스 파일\Game\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Game\public\Maze.cpp">
+      <Filter>소스 파일\Game\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Engine\private\Main.cpp">
+      <Filter>소스 파일\Engine\private</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
