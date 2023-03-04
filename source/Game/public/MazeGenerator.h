@@ -36,7 +36,7 @@ class RecursiveRandomMazeGenerator : public MazeGenerator
 public:
 	virtual class Maze* GenerateNewMaze(int Length) override;
 
-	virtual class Maze* GenerateNewMaze(int Width, int Height) override;
+	virtual class Maze* GenerateNewMaze(int Height, int Width) override;
 
 private:
 	void RecursiveMazeSearch(Location2D CurrLocation, class Maze*& Maze);

@@ -16,6 +16,11 @@ struct Location2D
 {
 	unsigned int Ypos;
 	unsigned int Xpos;
+
+	bool operator == (const Location2D& L2)
+	{
+		return this->Ypos == L2.Ypos && this->Xpos == L2.Xpos;
+	}
 };
 
 class Maze
@@ -32,10 +37,20 @@ public:
 
 	size_t GetWidth() const { return GetHeight() ? MazeArray[0].size() : 0; }
 
+	bool SetEntranceLocation(Location2D NewLocation);
+
+	bool SetExitLocation(Location2D NewLocation);
+
+	Location2D GetEntranceLocation();
+
+	Location2D GetExitLocation();
+
 	void PrintMazeToCmd();
 
 private:
 	Location2D EntranceLocation;
+
+	Location2D ExitLocation;
 
 	std::vector<std::vector<int> > MazeArray;
 };
