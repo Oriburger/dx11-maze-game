@@ -50,6 +50,9 @@
     <ClInclude Include="..\source\Game\public\Maze.h">
       <Filter>소스 파일\Game\public</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\Core\public\Geometry.h">
+      <Filter>소스 파일\Core\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Game\private\MazeGenerator.cpp">
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="..\source\Engine\private\Main.cpp">
       <Filter>소스 파일\Engine\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Core\private\Core.cpp">
+      <Filter>소스 파일\Core\private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

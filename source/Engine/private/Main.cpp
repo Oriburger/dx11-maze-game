@@ -6,7 +6,7 @@
 int main()
 {
 	MazeGenerator* mazeGenerator = new RecursiveRandomMazeGenerator();
-	Maze* myMaze = mazeGenerator->GenerateNewMaze(5);
+	Maze* myMaze = mazeGenerator->GenerateNewMaze(10, 20);
 
 	myMaze->PrintMazeToCmd();
 

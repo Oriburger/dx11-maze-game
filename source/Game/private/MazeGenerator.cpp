@@ -1,26 +1,9 @@
 #include "../public/MazeGenerator.h"
 #include "../public/Maze.h"
 
-Location2D MazeGenerator::GetRandomSideLocation(int Height, int Width)
-{
-	if (Height <= 0 || Width <= 0) return Location2D();
+const int dirY[4] = { 1, -1, 0, 0 };
+const int dirX[4] = { 0, 0, -1, 1 };
 
-	srand((unsigned)time(NULL));
-
-	unsigned int ypos = rand() % Height;
-	unsigned int xpos = rand() % Width;
-	
-	if (rand() % 2)
-	{
-		ypos = rand() % 2 ? 0 : Height - 1;
-	}
-	else
-	{
-		xpos = rand() % 2 ? 0 : Width - 1;
-	}
-
-	return { ypos, xpos };
-}
 
 Maze* RecursiveRandomMazeGenerator::GenerateNewMaze(int Length)
 {
@@ -31,24 +14,70 @@ Maze* RecursiveRandomMazeGenerator::GenerateNewMaze(int Height, int Width)
 {
 	Maze* newMaze = new Maze(Width, Height);
 
-	while (!newMaze->SetEntranceLocation(GetRandomSideLocation(Height, Width))) {}
-	while (!newMaze->SetExitLocation(GetRandomSideLocation(Height, Width))) {}
+	while(1) //수정 필요
+	{
+		Location2D entranceLocation = GetRandomSideLocation(newMaze);
+		Location2D exitLocation = GetRandomSideLocation(newMaze);
 
-	const int dirY[4] = { 1, -1, 0, 0 };
-	const int dirX[4] = { 0, 0, -1, 1 };
-	const unsigned int width = (int)newMaze->GetWidth();
-	const unsigned int height = (int)newMaze->GetHeight();
+		if (entranceLocation == exitLocation) continue;
 
-	
+		SetEntranceAndExit(newMaze, entranceLocation, exitLocation);
+		break;
+	}
+
+	RecursiveMazeSearch(newMaze, newMaze->GetEntranceLocation());
 
 	return newMaze;
 }
 
-void RecursiveRandomMazeGenerator::RecursiveMazeSearch(Location2D CurrLocation, Maze*& Maze)
+void RecursiveRandomMazeGenerator::SetEntranceAndExit(Maze* MyMaze, Location2D EntranceLocation, Location2D ExitLocation)
 {
-	if (Maze == nullptr) return;
-	if (CurrLocation.Ypos < 0 || CurrLocation.Ypos >= Maze->GetHeight()) return;
-	if (CurrLocation.Xpos < 0 || CurrLocation.Xpos >= Maze->GetWidth()) return;
+	if (MyMaze == nullptr) return;
+	
+	MyMaze->SetEntranceLocation(EntranceLocation);
+	MyMaze->SetExitLocation(ExitLocation);
+}
 
-	//RecursiveMazeSearch 
+Location2D RecursiveRandomMazeGenerator::GetRandomSideLocation(Maze* MyMaze)
+{
+	if (MyMaze == nullptr) return Location2D();
+	if (MyMaze->GetHeight() <= 0 || MyMaze->GetWidth() <= 0) return Location2D();
+
+	unsigned int ypos = randGenerator->GetRandomValue() % MyMaze->GetHeight();
+	unsigned int xpos = randGenerator->GetRandomValue() % MyMaze->GetWidth();
+
+	if (randGenerator->GetRandomValue() % 2) ypos = randGenerator->GetRandomValue() % 2 ? 0 : MyMaze->GetHeight() - 1;
+	else xpos = randGenerator->GetRandomValue() % 2 ? 0 : MyMaze->GetWidth() - 1;
+
+	return { ypos, xpos };
+}
+
+void RecursiveRandomMazeGenerator::RecursiveMazeSearch(Maze* MyMaze, Location2D CurrLocation, Location2D PrevLocation)
+{
+	if ((*MyMaze)[CurrLocation.Ypos][CurrLocation.Xpos] == 1) return;
+	if ((*MyMaze)[CurrLocation.Ypos][CurrLocation.Xpos] == 0 && !(PrevLocation == Location2D()))
+	{
+		(*MyMaze)[CurrLocation.Ypos][CurrLocation.Xpos] = 1;
+		return;
+	}
+
+	(*MyMaze)[CurrLocation.Ypos][CurrLocation.Xpos] = 0;
+
+	int dirIdx = randGenerator->GetRandomValue() % 4;
+	for (int count = 0; count < 1; count += 1)
+	{
+		const Location2D nextLocation = { CurrLocation.Ypos + dirY[dirIdx], CurrLocation.Xpos + dirX[dirIdx]};
+		if (nextLocation.Ypos == 0 || nextLocation.Ypos == MyMaze->GetHeight() - 1
+			|| nextLocation.Xpos == 0 || nextLocation.Xpos == MyMaze->GetWidth() - 1
+			|| PrevLocation == nextLocation)
+		{
+			count -= 1;
+			dirIdx = (dirIdx + 1) % 4;
+			continue;
+		}
+
+		RecursiveMazeSearch(MyMaze, nextLocation, CurrLocation);
+
+		dirIdx = (dirIdx + 1) % 4;
+	}
 }

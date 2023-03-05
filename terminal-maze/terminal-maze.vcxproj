@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\Core\public\Core.h" />
+    <ClInclude Include="..\source\Core\public\Geometry.h" />
     <ClInclude Include="..\source\Engine\public\Main.h" />
     <ClInclude Include="..\source\Game\public\Maze.h" />
     <ClInclude Include="..\source\Game\public\MazeGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\Core\private\Core.cpp" />
     <ClCompile Include="..\source\Engine\private\Main.cpp" />
     <ClCompile Include="..\source\Game\private\MazeGenerator.cpp" />
     <ClCompile Include="..\source\Game\public\Maze.cpp" />

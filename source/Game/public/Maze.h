@@ -12,17 +12,6 @@
 	- Client는 Generator
 */
 
-struct Location2D
-{
-	unsigned int Ypos;
-	unsigned int Xpos;
-
-	bool operator == (const Location2D& L2)
-	{
-		return this->Ypos == L2.Ypos && this->Xpos == L2.Xpos;
-	}
-};
-
 class Maze
 {
 public:
@@ -31,6 +20,8 @@ public:
 	Maze(int Height, int Width);
 
 	Maze(Maze&& MazeRef); //이동 연산
+
+	std::vector<int>& operator[](const int& Index) { return MazeArray[Index]; }
 
 public:
 	size_t GetHeight() const { return MazeArray.size(); }
