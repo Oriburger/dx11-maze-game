@@ -2,23 +2,26 @@
 
 RandomIntegerValueGenerator::RandomIntegerValueGenerator()
 {
-	Distribution = std::uniform_int_distribution<int>(0, 99);
+	MinValue = 0; 
+	MaxValue = 99;
 }
 
-RandomIntegerValueGenerator::RandomIntegerValueGenerator(int MinValue, int MaxValue)
+RandomIntegerValueGenerator::RandomIntegerValueGenerator(int NewMinValue, int NewMaxValue)
 {
-	SetValueRange(MinValue, MaxValue);
+	SetValueRange(NewMinValue, NewMaxValue);
 }
 
-void RandomIntegerValueGenerator::SetValueRange(int MinValue, int MaxValue)
+void RandomIntegerValueGenerator::SetValueRange(int NewMinValue, int NewMaxValue)
 {
-	if (MinValue > MaxValue) std::swap(MinValue, MaxValue);
-	Distribution = std::uniform_int_distribution<int>(MinValue, MaxValue);
+	if (NewMinValue > NewMaxValue) std::swap(NewMinValue, NewMaxValue);
+	MinValue = NewMinValue;
+	MaxValue = NewMaxValue;
 }
 
 int RandomIntegerValueGenerator::GetRandomValue() const
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	return Distribution(gen);
+	std::random_device randomDevice;
+	std::mt19937 gen(randomDevice()); //매번 생성되어 성능 저하 우려.
+	std::uniform_int_distribution<int> distribution(MinValue, MaxValue);
+	return distribution(gen);
 }

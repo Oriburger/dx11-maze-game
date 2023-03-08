@@ -9,4 +9,9 @@ struct Location2D
 	{
 		return this->Ypos == L2.Ypos && this->Xpos == L2.Xpos;
 	}
+
+	bool operator != (const Location2D& L2)
+	{
+		return !(*this == L2);
+	}
 };

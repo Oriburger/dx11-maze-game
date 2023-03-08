@@ -26,8 +26,6 @@ public:
 	virtual class Maze* GenerateNewMaze(int Length) = 0;
 
 	virtual class Maze* GenerateNewMaze(int Width, int Height) = 0;
-
-	virtual void SetEntranceAndExit(class Maze* MyMaze, Location2D EntranceLocation, Location2D ExitLocation) = 0;
 };
 
 class RecursiveRandomMazeGenerator : public MazeGenerator
@@ -42,12 +40,10 @@ public:
 
 	virtual class Maze* GenerateNewMaze(int Height, int Width) override;
 
-	virtual void SetEntranceAndExit(class Maze* MyMaze, Location2D EntranceLocation, Location2D ExitLocation) override;
-
 private:
 	class RandomIntegerValueGenerator* randGenerator; 
 
-	struct Location2D GetRandomSideLocation(class Maze* MyMaze);
+	bool RecursiveMazeSearch(class Maze* MyMaze, Location2D CurrLocation, Location2D PrevLocation = {0, 0});
 
-	void RecursiveMazeSearch(class Maze* MyMaze, Location2D CurrLocation, Location2D PrevLocation = {0, 0});
+	Location2D GetSearchBeginLocation(class Maze* MyMaze, bool bInitial = false);
 };

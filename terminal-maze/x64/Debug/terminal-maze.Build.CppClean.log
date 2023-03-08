@@ -1,22 +1,15 @@
 d:\terminal-maze\terminal-maze\x64\debug\vc143.pdb
 d:\terminal-maze\terminal-maze\x64\debug\vc143.idb
 d:\terminal-maze\terminal-maze\x64\debug\maze.obj
-d:\terminal-maze\terminal-maze\x64\debug\main.obj
 d:\terminal-maze\terminal-maze\x64\debug\mazegenerator.obj
-e:\other project\terminal-maze\terminal-maze\x64\debug\vc143.pdb
-e:\other project\terminal-maze\terminal-maze\x64\debug\vc143.idb
-e:\other project\terminal-maze\terminal-maze\x64\debug\maze.obj
-e:\other project\terminal-maze\terminal-maze\x64\debug\main.obj
+d:\terminal-maze\terminal-maze\x64\debug\main.obj
+d:\terminal-maze\terminal-maze\x64\debug\core.obj
 d:\terminal-maze\x64\debug\terminal-maze.exe
 d:\terminal-maze\terminal-maze\x64\debug\terminal-maze.ilk
 d:\terminal-maze\x64\debug\terminal-maze.pdb
-e:\other project\terminal-maze\terminal-maze\x64\debug\mazegenerator.obj
-e:\other project\terminal-maze\terminal-maze\x64\debug\terminal-maze.ilk
-e:\other project\terminal-maze\x64\debug\terminal-maze.pdb
-e:\other project\terminal-maze\x64\debug\terminal-maze.exe
-e:\other project\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\cl.command.1.tlog
-e:\other project\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\cl.read.1.tlog
-e:\other project\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\cl.write.1.tlog
-e:\other project\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\link.command.1.tlog
-e:\other project\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\link.read.1.tlog
-e:\other project\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\link.write.1.tlog
+d:\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\cl.command.1.tlog
+d:\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\cl.read.1.tlog
+d:\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\cl.write.1.tlog
+d:\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\link.command.1.tlog
+d:\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\link.read.1.tlog
+d:\terminal-maze\terminal-maze\x64\debug\terminal-maze.tlog\link.write.1.tlog

@@ -1,0 +1,10 @@
+# Visual Studio 2015 user specific files
+.vs/
+*.xcodeproj
+*.xcworkspace
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb

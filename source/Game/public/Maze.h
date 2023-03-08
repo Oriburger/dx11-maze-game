@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Core/public/Core.h"
-#define DEFAULT_MAZE_LENGTH 3
+#define DEFAULT_MAZE_LENGTH 5
 
 /*
 - Date : 23/03/02 LJH
@@ -17,7 +17,7 @@ class Maze
 public:
 	Maze();
 
-	Maze(int Height, int Width);
+	Maze(int Height, int Width); //인자로 짝수가 전달될 시, 가장 근접한 홀수로 처리된다.
 
 	Maze(Maze&& MazeRef); //이동 연산
 
@@ -28,10 +28,6 @@ public:
 
 	size_t GetWidth() const { return GetHeight() ? MazeArray[0].size() : 0; }
 
-	bool SetEntranceLocation(Location2D NewLocation);
-
-	bool SetExitLocation(Location2D NewLocation);
-
 	Location2D GetEntranceLocation();
 
 	Location2D GetExitLocation();
@@ -39,9 +35,5 @@ public:
 	void PrintMazeToCmd();
 
 private:
-	Location2D EntranceLocation;
-
-	Location2D ExitLocation;
-
 	std::vector<std::vector<int> > MazeArray;
 };

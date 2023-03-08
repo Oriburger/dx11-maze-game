@@ -8,10 +8,11 @@ Maze::Maze()
 
 Maze::Maze(int Height, int Width)
 {
+	Height += (Height % 2 == 0);
+	Width += (Width % 2 == 0); 
 	Height = std::max(DEFAULT_MAZE_LENGTH, Height);
 	Width = std::max(DEFAULT_MAZE_LENGTH, Width);
 	MazeArray = std::vector<std::vector<int> >(Height, std::vector<int>(Width, -1));
-
 
 	//가장자리 벽 생성
 	for (int h = 0; h < Height; h++)
@@ -26,42 +27,14 @@ Maze::Maze(Maze&& MazeRef)
 	this->MazeArray = MazeRef.MazeArray;
 }
 
-bool Maze::SetEntranceLocation(Location2D NewLocation)
-{
-	if (NewLocation.Ypos != GetHeight()-1 && NewLocation.Ypos != 0
-		&& NewLocation.Xpos != GetWidth()-1 && NewLocation.Xpos != 0) return false; 
-	if (NewLocation.Ypos == NewLocation.Xpos) return false;
-	if (NewLocation == ExitLocation) return false;
-
-	MazeArray[EntranceLocation.Ypos][EntranceLocation.Xpos] = 1;
-	EntranceLocation = NewLocation;
-	MazeArray[EntranceLocation.Ypos][EntranceLocation.Xpos] = 0;
-
-	return true;
-}
-
-bool Maze::SetExitLocation(Location2D NewLocation)
-{
-	if (NewLocation.Ypos != GetHeight() - 1 && NewLocation.Ypos != 0
-		&& NewLocation.Xpos != GetWidth() - 1 && NewLocation.Xpos != 0) return false;
-	if (NewLocation.Ypos == NewLocation.Xpos) return false;
-	if (NewLocation == EntranceLocation) return false;
-
-	MazeArray[ExitLocation.Ypos][ExitLocation.Xpos] = 1;
-	ExitLocation = NewLocation;
-	MazeArray[ExitLocation.Ypos][ExitLocation.Xpos] = 0;
-
-	return true;
-}
-
 Location2D Maze::GetEntranceLocation()
 {
-	return EntranceLocation;
+	return { 1, 1 };
 }
 
 Location2D Maze::GetExitLocation()
 {
-	return ExitLocation;
+	return { (unsigned)GetHeight() - 2, (unsigned)GetWidth() - 2 };
 }
 
 void Maze::PrintMazeToCmd()

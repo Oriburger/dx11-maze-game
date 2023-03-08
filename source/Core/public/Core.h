@@ -19,14 +19,14 @@ class RandomIntegerValueGenerator
 public:
 	RandomIntegerValueGenerator();
 
-	RandomIntegerValueGenerator(int MinValue, int MaxValue);
+	RandomIntegerValueGenerator(int NewMinValue, int NewMaxValue);
 
-	void SetValueRange(int MinValue, int MaxValue);
+	void SetValueRange(int NewMinValue, int NewMaxValue);
 
 	int GetRandomValue() const;
 
 private:
-	std::random_device RandDevice;
+	int MinValue;
 
-	std::uniform_int_distribution<int> Distribution;
+	int MaxValue;
 };
