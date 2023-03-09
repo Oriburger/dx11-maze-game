@@ -3,6 +3,8 @@
 #include <vector>
 #include <cmath>
 #include <random>
+#include <Windows.h>
+#include <d3d11.h>
 #include "Geometry.h"
 
 /*

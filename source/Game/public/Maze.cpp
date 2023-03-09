@@ -10,8 +10,8 @@ Maze::Maze(int Height, int Width)
 {
 	Height += (Height % 2 == 0);
 	Width += (Width % 2 == 0); 
-	Height = std::max(DEFAULT_MAZE_LENGTH, Height);
-	Width = std::max(DEFAULT_MAZE_LENGTH, Width);
+	Height = max(DEFAULT_MAZE_LENGTH, Height);
+	Width = max(DEFAULT_MAZE_LENGTH, Width);
 	MazeArray = std::vector<std::vector<int> >(Height, std::vector<int>(Width, -1));
 
 	//가장자리 벽 생성

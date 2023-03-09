@@ -16,17 +16,12 @@ Maze* RecursiveRandomMazeGenerator::GenerateNewMaze(int Height, int Width)
 	bool bGenerateResult = false;
 	int tryCount = 0;
 
-	while (!bGenerateResult)
+	for (unsigned ypos = 1; ypos <= Height - 1; ypos += 2)
 	{
-		if (tryCount >= 1e5)
+		for (unsigned xpos = 1; xpos <= Width - 1; xpos += 2)
 		{
-			std::cout << "Error) RecursiveRandomMazeGenerator::GenerateNewMaze - Try Count Exceed";
-			break;
+			RecursiveMazeSearch(newMaze, Location2D({ ypos, xpos }));
 		}
-		Location2D beginLocation = GetSearchBeginLocation(newMaze, !(bool)(++tryCount));
-
-		(*newMaze)[beginLocation.Ypos][beginLocation.Xpos] = -1;
-		bGenerateResult = RecursiveMazeSearch(newMaze, beginLocation);
 	}
 	
 	return newMaze;
@@ -50,27 +45,10 @@ bool RecursiveRandomMazeGenerator::RecursiveMazeSearch(Maze* MyMaze, Location2D 
 		{
 			(*MyMaze)[CurrLocation.Ypos + dirY[dirIdx]][CurrLocation.Xpos + dirX[dirIdx]] = 0;
 			RecursiveMazeSearch(MyMaze, nextLocation, CurrLocation);
+			continue;
 		}
-
+		tryCount -= 1;
 		dirIdx = (dirIdx + 1) % 4;
 	}
 	return ((*MyMaze)[MyMaze->GetHeight() - 2][MyMaze->GetWidth() - 2] == 0);
-}
-
-Location2D RecursiveRandomMazeGenerator::GetSearchBeginLocation(Maze* MyMaze, bool bInitial)
-{
-	if (MyMaze == nullptr) return Location2D();
-	else if (bInitial == true) return Location2D({ 1, 1 });
-	
-	for (unsigned ypos = MyMaze->GetHeight() - 2; ypos > 1; ypos -= 2)
-	{
-		for (unsigned xpos = MyMaze->GetWidth() - 2; xpos > 1; xpos -= 2)
-		{
-			if ((*MyMaze)[ypos][xpos] == 0)
-			{
-				return Location2D({ ypos, xpos });
-			}
-		}
-	}
-	return Location2D({ 1, 1 });
 }
