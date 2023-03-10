@@ -20,7 +20,6 @@ int main()
 									 &md3dDevice,
 									 &featureLevel,
 									 &md3dImmediateContext);
-
 	if (FAILED(hr))
 	{
 		MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
@@ -35,7 +34,7 @@ int main()
 	MessageBox(0, L"D3D11CreateDevice is succeed", 0, 0);
 
 	MazeGenerator* mazeGenerator = new RecursiveRandomMazeGenerator();
-	Maze* myMaze = mazeGenerator->GenerateNewMaze(20, 20);
+	Maze* myMaze = mazeGenerator->GenerateNewMaze(50, 50);
 
 	myMaze->PrintMazeToCmd();
 

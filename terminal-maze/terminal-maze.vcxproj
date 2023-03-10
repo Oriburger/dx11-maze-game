@@ -28,8 +28,8 @@
   <ItemGroup>
     <ClCompile Include="..\source\Core\private\Core.cpp" />
     <ClCompile Include="..\source\Engine\private\Main.cpp" />
+    <ClCompile Include="..\source\Game\private\Maze.cpp" />
     <ClCompile Include="..\source\Game\private\MazeGenerator.cpp" />
-    <ClCompile Include="..\source\Game\public\Maze.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

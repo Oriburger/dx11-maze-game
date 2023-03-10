@@ -43,5 +43,5 @@ public:
 private:
 	class RandomIntegerValueGenerator* randGenerator; 
 
-	bool RecursiveMazeSearch(class Maze* MyMaze, Location2D CurrLocation, Location2D PrevLocation = {0, 0});
+	Location2D RecursiveMazeSearch(class Maze* MyMaze, Location2D CurrLocation, Location2D PrevLocation = {0, 0});
 };

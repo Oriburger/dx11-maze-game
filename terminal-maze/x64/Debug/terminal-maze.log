@@ -1,2 +1,4 @@
-﻿  Main.cpp
+﻿  MazeGenerator.cpp
+D:\terminal-maze\source\Game\private\MazeGenerator.cpp(24,31): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+D:\terminal-maze\source\Game\private\MazeGenerator.cpp(26,32): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
   terminal-maze.vcxproj -> D:\terminal-maze\x64\Debug\terminal-maze.exe

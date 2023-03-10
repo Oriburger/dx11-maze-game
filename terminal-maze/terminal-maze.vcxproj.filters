@@ -58,14 +58,14 @@
     <ClCompile Include="..\source\Game\private\MazeGenerator.cpp">
       <Filter>소스 파일\Game\private</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\Game\public\Maze.cpp">
-      <Filter>소스 파일\Game\private</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\Engine\private\Main.cpp">
       <Filter>소스 파일\Engine\private</Filter>
     </ClCompile>
     <ClCompile Include="..\source\Core\private\Core.cpp">
       <Filter>소스 파일\Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Game\private\Maze.cpp">
+      <Filter>소스 파일\Game\private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
