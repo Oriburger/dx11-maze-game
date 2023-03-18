@@ -36,6 +36,9 @@
     <Filter Include="소스 파일\Engine\private">
       <UniqueIdentifier>{7646d049-7c3e-4ddf-b6cb-db376fc4f04d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PCH">
+      <UniqueIdentifier>{7f86a2f8-df09-45a2-acdf-2926c9a535be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\Game\public\MazeGenerator.h">
@@ -44,28 +47,49 @@
     <ClInclude Include="..\source\Core\public\Core.h">
       <Filter>소스 파일\Core\public</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\Engine\public\Main.h">
-      <Filter>소스 파일\Engine\public</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\Game\public\Maze.h">
       <Filter>소스 파일\Game\public</Filter>
     </ClInclude>
     <ClInclude Include="..\source\Core\public\Geometry.h">
       <Filter>소스 파일\Core\public</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\Core\public\Main.h">
+      <Filter>소스 파일\Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Engine\public\D3dclass.h">
+      <Filter>소스 파일\Engine\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Engine\public\GraphicalClass.h">
+      <Filter>소스 파일\Engine\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Engine\public\DxDefine.h">
+      <Filter>소스 파일\Engine\public</Filter>
+    </ClInclude>
+    <ClInclude Include="PCH\stdafx.h">
+      <Filter>PCH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Game\private\MazeGenerator.cpp">
       <Filter>소스 파일\Game\private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\Engine\private\Main.cpp">
-      <Filter>소스 파일\Engine\private</Filter>
     </ClCompile>
     <ClCompile Include="..\source\Core\private\Core.cpp">
       <Filter>소스 파일\Core\private</Filter>
     </ClCompile>
     <ClCompile Include="..\source\Game\private\Maze.cpp">
       <Filter>소스 파일\Game\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Core\private\Main.cpp">
+      <Filter>소스 파일\Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Engine\private\D3dclass.cpp">
+      <Filter>소스 파일\Engine\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Engine\private\GraphicalClass.cpp">
+      <Filter>소스 파일\Engine\private</Filter>
+    </ClCompile>
+    <ClCompile Include="PCH\stdafx.cpp">
+      <Filter>PCH</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

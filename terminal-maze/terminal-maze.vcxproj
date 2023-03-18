@@ -21,15 +21,22 @@
   <ItemGroup>
     <ClInclude Include="..\source\Core\public\Core.h" />
     <ClInclude Include="..\source\Core\public\Geometry.h" />
-    <ClInclude Include="..\source\Engine\public\Main.h" />
+    <ClInclude Include="..\source\Core\public\Main.h" />
+    <ClInclude Include="..\source\Engine\public\D3dclass.h" />
+    <ClInclude Include="..\source\Engine\public\DxDefine.h" />
+    <ClInclude Include="..\source\Engine\public\GraphicalClass.h" />
     <ClInclude Include="..\source\Game\public\Maze.h" />
     <ClInclude Include="..\source\Game\public\MazeGenerator.h" />
+    <ClInclude Include="PCH\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Core\private\Core.cpp" />
-    <ClCompile Include="..\source\Engine\private\Main.cpp" />
+    <ClCompile Include="..\source\Core\private\Main.cpp" />
+    <ClCompile Include="..\source\Engine\private\D3dclass.cpp" />
+    <ClCompile Include="..\source\Engine\private\GraphicalClass.cpp" />
     <ClCompile Include="..\source\Game\private\Maze.cpp" />
     <ClCompile Include="..\source\Game\private\MazeGenerator.cpp" />
+    <ClCompile Include="PCH\stdafx.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -84,8 +91,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.22000.0\um\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\DX11Study\DVD\Code\Common;$(ProjectDir)PCH;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\DX11Study\DVD\Code\Common;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,6 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,6 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,13 +130,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;$(ProjectDir)PCH</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <ForcedIncludeFiles>$(ProjectDir)PCH\stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>$(ProjectDir)PCH\stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;D3DCompiler.lib;Effects11d.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,6 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

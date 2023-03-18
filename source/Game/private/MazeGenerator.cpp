@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "../public/MazeGenerator.h"
 #include "../public/Maze.h"
 

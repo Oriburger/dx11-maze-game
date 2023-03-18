@@ -1,4 +1,10 @@
-﻿  MazeGenerator.cpp
-D:\terminal-maze\source\Game\private\MazeGenerator.cpp(24,31): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
-D:\terminal-maze\source\Game\private\MazeGenerator.cpp(26,32): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+﻿  Core.cpp
+  Main.cpp
+  D3dclass.cpp
+D:\terminal-maze\source\Engine\private\D3dclass.cpp(323,43): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+  GraphicalClass.cpp
+  Maze.cpp
+  MazeGenerator.cpp
+D:\terminal-maze\source\Game\private\MazeGenerator.cpp(25,31): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+D:\terminal-maze\source\Game\private\MazeGenerator.cpp(27,32): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
   terminal-maze.vcxproj -> D:\terminal-maze\x64\Debug\terminal-maze.exe

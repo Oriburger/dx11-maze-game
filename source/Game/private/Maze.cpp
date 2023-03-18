@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "../public/Maze.h"
 
 Maze::Maze()
