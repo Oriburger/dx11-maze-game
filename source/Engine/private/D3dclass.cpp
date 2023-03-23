@@ -16,7 +16,6 @@ D3DClass::~D3DClass()
 
 bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hwnd, bool fullscreen, float screenDepth, float screenNear)
 {
-
     // 수직동기화 상태를 저장한다.
     m_vsync_enabled = vsync;
 
@@ -26,7 +25,6 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     {
         return false;
     }
-
 
     // 팩토리 객체를 사용하여 첫번째 그래픽 카드 인터페이스 어뎁터를 생성한다.
     IDXGIAdapter* adapter = nullptr;
@@ -126,7 +124,6 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     adapter->Release();
     adapter = nullptr;
 
-
     // 스왑체인 구조체를 초기환한다.
     DXGI_SWAP_CHAIN_DESC swapChainDesc;
     ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
@@ -139,7 +136,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     swapChainDesc.BufferDesc.Height = screenHeight;
 
     // 33bit 서피스를 설정한다.
-    swapChainDesc.BufferDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+    swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 
     // 백버퍼의 새로고침 비율을 설정한다.
     if (m_vsync_enabled)
@@ -149,7 +146,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     }
     else
     {
-        swapChainDesc.BufferDesc.RefreshRate.Numerator = 0;
+        swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
         swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
     }
 
@@ -165,15 +162,8 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     swapChainDesc.SampleDesc.Quality = 0;
 
     // 창모드 or 풀스크린 모드를 설정한다.
-    if (fullscreen)
-    {
-        swapChainDesc.Windowed = false;
-    }
-    else
-    {
-        swapChainDesc.Windowed = true;
-    }
-
+    swapChainDesc.Windowed = !fullscreen;
+    
     // 스캔 라인 순서 및 크기를 지정하지 않음으로 설정한다.
     swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
     swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
@@ -183,17 +173,32 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 
     // 추가 옵션 플래그를 사용하지 않는다.
     swapChainDesc.Flags = 0;
-
+    
     // 피처레벨을 DirectX11로 설정한다.
     D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
+   
+    UINT createDeviceFlags = 0;
+
+	#if defined(DEBUG) || defined(_DEBUG)
+		createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+	#endif
+
+    //이건 왜 됨?
+    //if(FAILED(0, D3D_DRIVER_TYPE_HARDWARE, 0, createDeviceFlags, 0, 0, D3D11_SDK_VERSION, &m_device, &featureLevel, &m_deviceContext))
 
     // 스왑 체인, Direct3D 장치 및 Direct3D 장치 컨텍스트를 만든다.
-    if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, &featureLevel, 1,
-        D3D11_SDK_VERSION, &swapChainDesc, &m_swapChain, &m_device, NULL, &m_deviceContext)))
+    if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, &featureLevel, 0,
+                                        D3D11_SDK_VERSION, &swapChainDesc, &m_swapChain, &m_device, NULL, &m_deviceContext)))
     {
+        MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
         return false;
     }
-
+    if (featureLevel != D3D_FEATURE_LEVEL_11_0)
+    {
+        MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
+        return false;
+    }
+    MessageBox(0, L"D3D11CreateDevice is succeed", 0, 0);
 
     // 백버퍼 포인터를 얻어온다.
     ID3D11Texture2D* backBufferPtr = nullptr;

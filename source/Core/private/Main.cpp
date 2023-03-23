@@ -1,37 +1,17 @@
 #pragma once
 #include "stdafx.h"
+#include "../../Engine/public/D3dclass.h"
 #include "../../Game/public/Maze.h"
 #include "../../Game/public/MazeGenerator.h"
 
 int main()
 {
-	UINT createDeviceFlags = 0;
+	D3DClass* myD3DObject = new D3DClass();
+	HINSTANCE hInstance = GetModuleHandle(nullptr);
+	HWND hwnd = CreateWindowA("Maze Generator", "Maze Generator", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT
+								, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, hInstance, 0);
 
-	#if defined(DEBUG) || defined(_DEBUG)
-		createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-	#endif
-
-	D3D_FEATURE_LEVEL featureLevel;
-	ID3D11Device* md3dDevice;
-	ID3D11DeviceContext* md3dImmediateContext;
-	HRESULT hr = D3D11CreateDevice(0, D3D_DRIVER_TYPE_HARDWARE, 0,
-									 createDeviceFlags, 0, 0, 
-									 D3D11_SDK_VERSION,
-									 &md3dDevice,
-									 &featureLevel,
-									 &md3dImmediateContext);
-	if (FAILED(hr))
-	{
-		MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
-		return false;
-	}
-	
-	if (featureLevel != D3D_FEATURE_LEVEL_11_0)
-	{
-		MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
-		return false;
-	}
-	MessageBox(0, L"D3D11CreateDevice is succeed", 0, 0);
+	myD3DObject->Initialize(2560, 1440, false, hwnd, false, 1.0f, 1.0f);
 
 	MazeGenerator* mazeGenerator = new RecursiveRandomMazeGenerator();
 	Maze* myMaze = mazeGenerator->GenerateNewMaze(50, 50);

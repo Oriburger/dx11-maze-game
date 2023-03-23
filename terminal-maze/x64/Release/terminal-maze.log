@@ -1,0 +1,13 @@
+﻿  Core.cpp
+E:\Other Project\terminal-maze\source\Core\private\Core.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'stdafx.h': No such file or directory
+  Main.cpp
+E:\Other Project\terminal-maze\source\Core\private\Main.cpp(2,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'stdafx.h': No such file or directory
+  D3dclass.cpp
+E:\Other Project\terminal-maze\source\Engine\private\D3dclass.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'stdafx.h': No such file or directory
+  GraphicalClass.cpp
+E:\Other Project\terminal-maze\source\Engine\private\GraphicalClass.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'stdafx.h': No such file or directory
+  Maze.cpp
+E:\Other Project\terminal-maze\source\Game\private\Maze.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'stdafx.h': No such file or directory
+  MazeGenerator.cpp
+E:\Other Project\terminal-maze\source\Game\private\MazeGenerator.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'stdafx.h': No such file or directory
+  stdafx.cpp
