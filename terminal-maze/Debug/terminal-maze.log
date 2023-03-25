@@ -1,0 +1,3 @@
+﻿  Main.cpp
+D:\terminal-maze\source\Core\private\Main.cpp(22,40): warning C4316: 'D3DClass': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
+  terminal-maze.vcxproj -> D:\terminal-maze\Debug\terminal-maze.exe
