@@ -1,3 +1,13 @@
-﻿  Main.cpp
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(terminal-maze.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  Core.cpp
+  Main.cpp
 D:\terminal-maze\source\Core\private\Main.cpp(14,9): warning C4101: 'Message' :참조되지 않은 지역 변수입니다.
-  terminal-maze.vcxproj -> D:\terminal-maze\x64\Debug\terminal-maze.exe
+  D3dclass.cpp
+D:\terminal-maze\source\Engine\private\D3dclass.cpp(347,43): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+  GraphicalClass.cpp
+  Maze.cpp
+  MazeGenerator.cpp
+D:\terminal-maze\source\Game\private\MazeGenerator.cpp(25,31): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+D:\terminal-maze\source\Game\private\MazeGenerator.cpp(27,32): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+  stdafx.cpp
+  terminal-maze.vcxproj -> D:\terminal-maze\x64\Debug\dx11_maze.exe

@@ -44,6 +44,7 @@
     <ProjectGuid>{e7b97c6c-2496-4e82-bb9d-d283202ffe36}</ProjectGuid>
     <RootNamespace>terminalmaze</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.22000.0</WindowsTargetPlatformVersion>
+    <ProjectName>dx11_maze</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

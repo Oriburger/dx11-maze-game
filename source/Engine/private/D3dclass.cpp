@@ -210,6 +210,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     // 추가 옵션 플래그를 사용하지 않는다.
     swapChainDesc.Flags = 0;
 
+
     HRESULT swapChainResult = dxgiFactory->CreateSwapChain(m_device, &swapChainDesc, &m_swapChain);
     if (FAILED(swapChainResult))
     {
