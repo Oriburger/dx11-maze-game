@@ -1,1 +1,3 @@
-﻿  terminal-maze.vcxproj -> D:\terminal-maze\x64\Debug\terminal-maze.exe
+﻿  Main.cpp
+D:\terminal-maze\source\Core\private\Main.cpp(14,9): warning C4101: 'Message' :참조되지 않은 지역 변수입니다.
+  terminal-maze.vcxproj -> D:\terminal-maze\x64\Debug\terminal-maze.exe

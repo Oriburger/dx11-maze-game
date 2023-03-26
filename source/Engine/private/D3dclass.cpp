@@ -123,6 +123,44 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     adapter->Release();
     adapter = nullptr;
 
+
+    /*====== 장치 생성 ========================= */
+
+    // 피처레벨을 DirectX11로 설정한다.
+    D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
+
+    UINT createDeviceFlags = 0;
+    #if defined(DEBUG) || defined(_DEBUG)
+        createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+    #endif
+
+    HRESULT deviceCreationResult = D3D11CreateDevice(0, D3D_DRIVER_TYPE_HARDWARE, 0,
+                                                     createDeviceFlags, 0, 0, D3D11_SDK_VERSION,
+                                                     &m_device, &featureLevel, &m_deviceContext);
+    if (FAILED(deviceCreationResult))
+    {
+        MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
+        return false;
+    }
+    if (featureLevel != D3D_FEATURE_LEVEL_11_0)
+    {
+        MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
+        return false;
+    }
+    MessageBox(0, L"D3D11CreateDevice is succeed", 0, 0);    
+
+    IDXGIDevice* dxgiDevice = 0;
+    m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&dxgiDevice);
+
+    IDXGIAdapter* dxgiAdapter = 0;
+    dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&dxgiAdapter);
+
+    IDXGIFactory* dxgiFactory = 0;
+    dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory);
+
+
+    /*====== 스왑체인 생성 ========================= */
+
     // 스왑체인 구조체를 초기환한다.
     DXGI_SWAP_CHAIN_DESC swapChainDesc;
     ZeroMemory(&swapChainDesc, sizeof(swapChainDesc));
@@ -149,7 +187,6 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
         swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
     }
 
-
     // 백버퍼의 사용용도를 지정한다.
     swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
@@ -172,33 +209,15 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 
     // 추가 옵션 플래그를 사용하지 않는다.
     swapChainDesc.Flags = 0;
+
+    HRESULT swapChainResult = dxgiFactory->CreateSwapChain(m_device, &swapChainDesc, &m_swapChain);
+    if (FAILED(swapChainResult))
+    {
+        MessageBox(0, L"CreateSwapChain Failed.", 0, 0);
+        return false;
+    }
+
     
-    // 피처레벨을 DirectX11로 설정한다.
-    D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
-   
-    UINT createDeviceFlags = 0;
-
-	#if defined(DEBUG) || defined(_DEBUG)
-		createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-	#endif
-
-    //이건 왜 됨?
-    //if(FAILED(0, D3D_DRIVER_TYPE_HARDWARE, 0, createDeviceFlags, 0, 0, D3D11_SDK_VERSION, &m_device, &featureLevel, &m_deviceContext))
-
-    // 스왑 체인, Direct3D 장치 및 Direct3D 장치 컨텍스트를 만든다.
-    if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, &featureLevel, 0,
-                                        D3D11_SDK_VERSION, &swapChainDesc, &m_swapChain, &m_device, NULL, &m_deviceContext)))
-    {
-        MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
-        return false;
-    }
-    if (featureLevel != D3D_FEATURE_LEVEL_11_0)
-    {
-        MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
-        return false;
-    }
-    MessageBox(0, L"D3D11CreateDevice is succeed", 0, 0);
-
     // 백버퍼 포인터를 얻어온다.
     ID3D11Texture2D* backBufferPtr = nullptr;
     if (FAILED(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&(backBufferPtr)))))

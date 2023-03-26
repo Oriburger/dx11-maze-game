@@ -46,7 +46,6 @@ void GraphicsClass::Shutdown()
 
 bool GraphicsClass::Frame()
 {
-
     //그래픽 렌더링을 수행합니다.
     if (!Render())
     {
