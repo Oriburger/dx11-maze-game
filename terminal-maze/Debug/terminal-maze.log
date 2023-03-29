@@ -1,3 +1,5 @@
-﻿  Main.cpp
-D:\terminal-maze\source\Core\private\Main.cpp(22,40): warning C4316: 'D3DClass': 힙에 할당된 개체가 16에 맞추어져 있지 않을 수도 있습니다
-  terminal-maze.vcxproj -> D:\terminal-maze\Debug\terminal-maze.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: 중간 디렉터리(Debug\)에 다른 프로젝트(terminal-maze.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
+  D3dclass.cpp
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+D:\dx11-maze\source\Engine\private\D3dclass.cpp(323,43): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+  terminal-maze.vcxproj -> D:\dx11-maze\Debug\dx11_maze.exe

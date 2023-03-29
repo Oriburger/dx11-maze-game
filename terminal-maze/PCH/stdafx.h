@@ -6,6 +6,9 @@
 #include <cstdlib>
 #include <malloc.h>
 #include <memory.h>
+#include <iostream>
+#include <string>
+#include <sstream>B
 #include <tchar.h>
 
 

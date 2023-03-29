@@ -1,13 +1,24 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: 중간 디렉터리(x64\Debug\)에 다른 프로젝트(terminal-maze.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
   Core.cpp
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+  GameTimer.cpp
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
   Main.cpp
-D:\terminal-maze\source\Core\private\Main.cpp(14,9): warning C4101: 'Message' :참조되지 않은 지역 변수입니다.
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+D:\dx11-maze\source\Core\private\Main.cpp(14,9): warning C4101: 'Message' :참조되지 않은 지역 변수입니다.
   D3dclass.cpp
-D:\terminal-maze\source\Engine\private\D3dclass.cpp(347,43): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+D:\dx11-maze\source\Engine\private\D3dclass.cpp(323,43): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
   GraphicalClass.cpp
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
   Maze.cpp
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
   MazeGenerator.cpp
-D:\terminal-maze\source\Game\private\MazeGenerator.cpp(25,31): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
-D:\terminal-maze\source\Game\private\MazeGenerator.cpp(27,32): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+D:\dx11-maze\source\Game\private\MazeGenerator.cpp(25,31): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
+D:\dx11-maze\source\Game\private\MazeGenerator.cpp(27,32): warning C4018: '<=': signed 또는 unsigned가 일치하지 않습니다.
   stdafx.cpp
-  terminal-maze.vcxproj -> D:\terminal-maze\x64\Debug\dx11_maze.exe
+D:\dx11-maze\terminal-maze\PCH\stdafx.h(11,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+D3dclass.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual __int64 __cdecl D3DClass::MsgProc(struct HWND__ *,unsigned int,unsigned __int64,__int64)" (?MsgProc@D3DClass@@UEAA_JPEAUHWND__@@I_K_J@Z)
+D:\DX11Study\DVD\Code\Common\Effects11d.lib : warning LNK4272: 'x86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
+D:\dx11-maze\x64\Debug\dx11_maze.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.

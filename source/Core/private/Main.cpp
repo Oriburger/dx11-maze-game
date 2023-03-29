@@ -6,7 +6,7 @@
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 HINSTANCE g_hInst;
-LPCTSTR lpszClass = TEXT("Terminal-Maze");
+LPCTSTR lpszClass = TEXT("DirectX11-Maze");
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -30,11 +30,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
         NULL, (HMENU)NULL, hInstance, NULL);
+    ShowWindow(hWnd, nCmdShow);
 
     GraphicsClass* myD3DObject = new GraphicsClass();
 	myD3DObject->Initialize(500, 500, hWnd);
-
-    if (!IsWindow(hWnd))  MessageBox(0, L"hwnd is InValid.", 0, 0);
 
 //	MazeGenerator* mazeGenerator = new RecursiveRandomMazeGenerator();
 //	Maze * myMaze = mazeGenerator->GenerateNewMaze(50, 50);

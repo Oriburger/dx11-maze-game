@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\terminal-maze\x64\Debug\dx11_maze.exe</FullPath>
+      <FullPath>D:\dx11-maze\x64\Debug\dx11_maze.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

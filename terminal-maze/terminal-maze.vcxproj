@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\Core\public\Core.h" />
+    <ClInclude Include="..\source\Core\public\GameTimer.h" />
     <ClInclude Include="..\source\Core\public\Geometry.h" />
     <ClInclude Include="..\source\Core\public\Main.h" />
     <ClInclude Include="..\source\Engine\public\D3dclass.h" />
@@ -31,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Core\private\Core.cpp" />
+    <ClCompile Include="..\source\Core\private\GameTimer.cpp" />
     <ClCompile Include="..\source\Core\private\Main.cpp" />
     <ClCompile Include="..\source\Engine\private\D3dclass.cpp" />
     <ClCompile Include="..\source\Engine\private\GraphicalClass.cpp" />

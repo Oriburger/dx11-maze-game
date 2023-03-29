@@ -68,6 +68,9 @@
     <ClInclude Include="PCH\stdafx.h">
       <Filter>PCH</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\Core\public\GameTimer.h">
+      <Filter>소스 파일\Core\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Game\private\MazeGenerator.cpp">
@@ -90,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="PCH\stdafx.cpp">
       <Filter>PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Core\private\GameTimer.cpp">
+      <Filter>소스 파일\Core\private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

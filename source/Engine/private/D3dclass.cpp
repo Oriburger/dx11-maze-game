@@ -1,12 +1,11 @@
-#include "stdafx.h"
+
 #include "../public/D3dclass.h"
-#include <iostream>
 
 D3DClass::D3DClass()
 {
 }
 
-D3DClass::D3DClass(const D3DClass&)
+D3DClass::D3DClass(HINSTANCE hInstance) //: mhAppInst(hInstance)
 {
 }
 
@@ -59,7 +58,6 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     {
         return false;
     }
-
 
     // 이제 모든 디스플레이 모드에 대해 화면 너비/높이에 맞는 디스플레이 모드를 찾는다.
     // 적합한 것을 찾으면 모니터의 새로고침 비율의 분모와 분자값을 저장한다.
@@ -124,42 +122,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     adapter = nullptr;
 
 
-    /*====== 장치 생성 ========================= */
-
-    // 피처레벨을 DirectX11로 설정한다.
-    D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
-
-    UINT createDeviceFlags = 0;
-    #if defined(DEBUG) || defined(_DEBUG)
-        createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-    #endif
-
-    HRESULT deviceCreationResult = D3D11CreateDevice(0, D3D_DRIVER_TYPE_HARDWARE, 0,
-                                                     createDeviceFlags, 0, 0, D3D11_SDK_VERSION,
-                                                     &m_device, &featureLevel, &m_deviceContext);
-    if (FAILED(deviceCreationResult))
-    {
-        MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
-        return false;
-    }
-    if (featureLevel != D3D_FEATURE_LEVEL_11_0)
-    {
-        MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
-        return false;
-    }
-    MessageBox(0, L"D3D11CreateDevice is succeed", 0, 0);    
-
-    IDXGIDevice* dxgiDevice = 0;
-    m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&dxgiDevice);
-
-    IDXGIAdapter* dxgiAdapter = 0;
-    dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&dxgiAdapter);
-
-    IDXGIFactory* dxgiFactory = 0;
-    dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory);
-
-
-    /*====== 스왑체인 생성 ========================= */
+    /*====== 장치 및 스왑 체인 생성 ========================= */
 
     // 스왑체인 구조체를 초기환한다.
     DXGI_SWAP_CHAIN_DESC swapChainDesc;
@@ -210,13 +173,26 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     // 추가 옵션 플래그를 사용하지 않는다.
     swapChainDesc.Flags = 0;
 
+    D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
 
-    HRESULT swapChainResult = dxgiFactory->CreateSwapChain(m_device, &swapChainDesc, &m_swapChain);
-    if (FAILED(swapChainResult))
+    UINT createDeviceFlags = 0;
+    #if defined(DEBUG) || defined(_DEBUG)
+        createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+    #endif  
+
+    // 스왑 체인, Direct3D 장치 및 Direct3D 장치 컨텍스트를 만든다.
+    if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, &featureLevel, 1,
+        D3D11_SDK_VERSION, &swapChainDesc, &m_swapChain, &m_device, NULL, &m_deviceContext)))
     {
-        MessageBox(0, L"CreateSwapChain Failed.", 0, 0);
+        MessageBox(0, L"D3D11CreateDevice Failed.", 0, 0);
         return false;
     }
+    if (featureLevel != D3D_FEATURE_LEVEL_11_0)
+    {
+        MessageBox(0, L"Direct3D Feature Level 11 unsupported.", 0, 0);
+        return false;
+    }
+    MessageBox(0, L"D3D11CreateDevice is succeed", 0, 0);
 
     
     // 백버퍼 포인터를 얻어온다.
@@ -226,13 +202,11 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
         return false;
     }
 
-
     // 백 버퍼 포인터로 랜더 타겟 뷰를 생성한다.
     if (FAILED(m_device->CreateRenderTargetView(backBufferPtr, NULL, &m_renderTargetView)))
     {
         return false;
     }
-
 
     // 백버퍼 포인터를 해제한다.
     backBufferPtr->Release();
@@ -249,7 +223,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     depthBufferDesc.MipLevels = 1;
     depthBufferDesc.ArraySize = 1;
     depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-    depthBufferDesc.SampleDesc.Count = 1;
+    depthBufferDesc.SampleDesc.Count = 1; //4X MSAA 사용X
     depthBufferDesc.SampleDesc.Quality = 0;
     depthBufferDesc.Usage = D3D11_USAGE_DEFAULT;
     depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
@@ -262,6 +236,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
         return false;
     }
 
+    /*
     // 스텐실 상태 구조체를 초기화 합니다.
     D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
     ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
@@ -286,6 +261,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
     depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
     depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+    */
 
     // 깊이 스텐실 상태를 설정합니다.
     m_deviceContext->OMSetDepthStencilState(m_depthStencilState, 1);
@@ -335,10 +311,10 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
     D3D11_VIEWPORT viewport;
     viewport.Width = static_cast<float>(screenWidth);
     viewport.Height = static_cast<float>(screenHeight);
-    viewport.MinDepth = 0.0f;
-    viewport.MaxDepth = 1.0f;
     viewport.TopLeftX = 0.0f;
     viewport.TopLeftY = 0.0f;
+    viewport.MinDepth = 0.0f;
+    viewport.MaxDepth = 1.0f;
 
     // 뷰포트를 생성한다.
     m_deviceContext->RSSetViewports(1, &viewport);
@@ -417,6 +393,45 @@ void D3DClass::Shutdown()
 
 }
 
+int D3DClass::Run()
+{
+    MSG msg = { 0 };
+
+    mTimer.Reset();
+
+    while (msg.message != WM_QUIT)
+    {
+        // If there are Window messages then process them.
+        if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+        // Otherwise, do animation/game stuff.
+        else
+        {
+            mTimer.Tick();
+
+            if (!mAppPaused)
+            {
+                CalculateFrameStats();
+                UpdateScene(mTimer.DeltaTime());
+                DrawScene();
+            }
+            else
+            {
+                Sleep(100);
+            }
+        }
+    }
+    return (int)msg.wParam;
+}
+
+void D3DClass::OnResize()
+{
+
+}
+
 void D3DClass::BeginScene(float red, float green, float blue, float alpha)
 {
 
@@ -428,6 +443,16 @@ void D3DClass::BeginScene(float red, float green, float blue, float alpha)
 
     // 깊이 버퍼를 지운다.
     m_deviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+}
+
+void D3DClass::DrawScene()
+{
+
+}
+
+void D3DClass::UpdateScene(float dt)
+{
+
 }
 
 void D3DClass::EndScene()
@@ -443,6 +468,212 @@ void D3DClass::EndScene()
         // 가능한 빠르게 출력한다.
         m_swapChain->Present(0, 0);
     }
+}
+
+void D3DClass::CalculateFrameStats()
+{
+    static int frameCnt = 0;
+    static float timeElapsed = 0.0f;
+
+    frameCnt++;
+
+    // Compute averages over one second period.
+    if ((mTimer.TotalTime() - timeElapsed) >= 1.0f)
+    {
+        float fps = (float)frameCnt; // fps = frameCnt / 1
+        float mspf = 1000.0f / fps;
+
+        std::wostringstream outs;
+        outs.precision(6);
+        outs << mMainWndCaption << L"    "
+            << L"FPS: " << fps << L"    "
+            << L"Frame Time: " << mspf << L" (ms)";
+        SetWindowText(mhMainWnd, outs.str().c_str());
+
+        // Reset for next average.
+        frameCnt = 0;
+        timeElapsed += 1.0f;
+    }
+}
+
+HINSTANCE D3DClass::AppInst()const
+{
+    return mhAppInst;
+}
+
+HWND D3DClass::MainWnd()const
+{
+    return mhMainWnd;
+}
+
+bool D3DClass::InitMainWindow()
+{/*
+    WNDCLASS wc;
+    wc.style = CS_HREDRAW | CS_VREDRAW;
+    wc.lpfnWndProc = MainWndProc;
+    wc.cbClsExtra = 0;
+    wc.cbWndExtra = 0;
+    wc.hInstance = mhAppInst;
+    wc.hIcon = LoadIcon(0, IDI_APPLICATION);
+    wc.hCursor = LoadCursor(0, IDC_ARROW);
+    wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
+    wc.lpszMenuName = 0;
+    wc.lpszClassName = L"D3DWndClassName";
+
+    if (!RegisterClass(&wc))
+    {
+        MessageBox(0, L"RegisterClass Failed.", 0, 0);
+        return false;
+    }
+
+    // Compute window rectangle dimensions based on requested client area dimensions.
+    RECT R = { 0, 0, mClientWidth, mClientHeight };
+    AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
+    int width = R.right - R.left;
+    int height = R.bottom - R.top;
+
+    mhMainWnd = CreateWindow(L"D3DWndClassName", mMainWndCaption.c_str(),
+        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, mhAppInst, 0);
+    if (!mhMainWnd)
+    {
+        MessageBox(0, L"CreateWindow Failed.", 0, 0);
+        return false;
+    }
+
+    ShowWindow(mhMainWnd, SW_SHOW);
+    UpdateWindow(mhMainWnd);
+    */
+    return true;
+}
+
+LRESULT D3DClass::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    return LRESULT();
+    /*
+    switch (msg)
+    {
+        // WM_ACTIVATE is sent when the window is activated or deactivated.  
+        // We pause the game when the window is deactivated and unpause it 
+        // when it becomes active.  
+    case WM_ACTIVATE:
+        if (LOWORD(wParam) == WA_INACTIVE)
+        {
+            mAppPaused = true;
+            mTimer.Stop();
+        }
+        else
+        {
+            mAppPaused = false;
+            mTimer.Start();
+        }
+        return 0;
+
+        // WM_SIZE is sent when the user resizes the window.  
+    case WM_SIZE:
+        // Save the new client area dimensions.
+        mClientWidth = LOWORD(lParam);
+        mClientHeight = HIWORD(lParam);
+        if (md3dDevice)
+        {
+            if (wParam == SIZE_MINIMIZED)
+            {
+                mAppPaused = true;
+                mMinimized = true;
+                mMaximized = false;
+            }
+            else if (wParam == SIZE_MAXIMIZED)
+            {
+                mAppPaused = false;
+                mMinimized = false;
+                mMaximized = true;
+                OnResize();
+            }
+            else if (wParam == SIZE_RESTORED)
+            {
+
+                // Restoring from minimized state?
+                if (mMinimized)
+                {
+                    mAppPaused = false;
+                    mMinimized = false;
+                    OnResize();
+                }
+
+                // Restoring from maximized state?
+                else if (mMaximized)
+                {
+                    mAppPaused = false;
+                    mMaximized = false;
+                    OnResize();
+                }
+                else if (mResizing)
+                {
+                    // If user is dragging the resize bars, we do not resize 
+                    // the buffers here because as the user continuously 
+                    // drags the resize bars, a stream of WM_SIZE messages are
+                    // sent to the window, and it would be pointless (and slow)
+                    // to resize for each WM_SIZE message received from dragging
+                    // the resize bars.  So instead, we reset after the user is 
+                    // done resizing the window and releases the resize bars, which 
+                    // sends a WM_EXITSIZEMOVE message.
+                }
+                else // API call such as SetWindowPos or mSwapChain->SetFullscreenState.
+                {
+                    OnResize();
+                }
+            }
+        }
+        return 0;
+
+        // WM_EXITSIZEMOVE is sent when the user grabs the resize bars.
+    case WM_ENTERSIZEMOVE:
+        mAppPaused = true;
+        mResizing = true;
+        mTimer.Stop();
+        return 0;
+
+        // WM_EXITSIZEMOVE is sent when the user releases the resize bars.
+        // Here we reset everything based on the new window dimensions.
+    case WM_EXITSIZEMOVE:
+        mAppPaused = false;
+        mResizing = false;
+        mTimer.Start();
+        OnResize();
+        return 0;
+
+        // WM_DESTROY is sent when the window is being destroyed.
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        return 0;
+
+        // The WM_MENUCHAR message is sent when a menu is active and the user presses 
+        // a key that does not correspond to any mnemonic or accelerator key. 
+    case WM_MENUCHAR:
+        // Don't beep when we alt-enter.
+        return MAKELRESULT(0, MNC_CLOSE);
+
+        // Catch this message so to prevent the window from becoming too small.
+    case WM_GETMINMAXINFO:
+        ((MINMAXINFO*)lParam)->ptMinTrackSize.x = 200;
+        ((MINMAXINFO*)lParam)->ptMinTrackSize.y = 200;
+        return 0;
+
+    case WM_LBUTTONDOWN:
+    case WM_MBUTTONDOWN:
+    case WM_RBUTTONDOWN:
+        OnMouseDown(wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+        return 0;
+    case WM_LBUTTONUP:
+    case WM_MBUTTONUP:
+    case WM_RBUTTONUP:
+        OnMouseUp(wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+        return 0;
+    case WM_MOUSEMOVE:
+        OnMouseMove(wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+        return 0;
+    }
+
+    return DefWindowProc(hwnd, msg, wParam, lParam);*/
 }
 
 ID3D11Device* D3DClass::GetDevice()
